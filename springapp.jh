@@ -1,0 +1,82 @@
+
+
+
+entity Role {
+	id String,
+	login String,
+	password String,
+    admin Admin,
+    }
+
+entity Admin {
+	id String,
+    role Role,
+    nom String,
+    
+}
+
+entity Dev {
+	id String,
+    role Role,
+    ticket Ticket,
+    
+}
+
+entity Client {
+	id String,
+  	etatTicket String,
+    description String,
+    environnement String,
+    urgence String,
+    
+}
+
+entity Ticket {
+	id String,
+    role Role,
+    ticket Ticket,
+    
+}
+
+
+relationship OneToOne {
+	Role{Admin} to Admin
+}
+
+relationship OneToOne {
+	Role{Dev} to Dev
+}
+
+relationship OneToOne {
+	Role{Client} to Client
+}
+
+
+
+
+
+relationship OneToMany {
+	Ticket{Dev} to Dev,
+	}
+    
+    relationship OneToMany {
+	Ticket{Client} to Client,
+	}
+    
+    
+
+
+
+
+// Set pagination options
+paginate Client, Ticket , Dev with infinite-scroll
+
+
+// Use Data Transfer Objects (DTO)
+// dto * with mapstruct
+
+// Set service options to all except few
+service all with serviceImpl 
+
+// Set an angular suffix
+// angularSuffix * with mySuffix
